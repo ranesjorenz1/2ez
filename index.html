@@ -10,42 +10,4 @@
   <body>
     <div class="form-container"></div>
   </body>
-  <script>
-    const contactInput = document.getElementById("contact");
-    const contactError = document.getElementById("contact-error");
-
-    let timeout = null;
-
-    contactInput.addEventListener("input", () => {
-      const number = contactInput.value;
-      clearTimeout(timeout);
-
-      timeout = setTimeout(() => {
-        if (number.length < 10) {
-          contactError.textContent = "";
-          return;
-        }
-
-        fetch("validate.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ phone: number }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.valid) {
-              contactError.textContent = "✔ Valid number";
-              contactError.style.color = "green";
-            } else {
-              contactError.textContent = "✘ Invalid number";
-              contactError.style.color = "red";
-            }
-          })
-          .catch((err) => {
-            contactError.textContent = "Error checking number.";
-            contactError.style.color = "red";
-          });
-      }, 600);
-    });
-  </script>
 </html>
