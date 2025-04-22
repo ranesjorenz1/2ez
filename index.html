@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- <script src="script.js"></script> -->
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Registration Form</h2>
+      <form
+        action="/submit"
+        method="POST"
+        class="RegisterForm"
+        onsubmit="return validateForm()"
+      >
+        <div class="form-group">
+          <label for="first-name">Name</label>
+          <input
+            type="text"
+            id="first-name"
+            name="first-name"
+            required
+            oninput="validateForm()"
+          />
+          <small id="name-error" style="color: red"></small>
+        </div>
+        <div class="form-group">
+          <label for="Contact No.">Contact No.</label>
+          <input type="number" id="contact" name="contact" required />
+          <small id="contact-error" style="color: red"></small>
+        </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit">Register</button>
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    const contactInput = document.getElementById("contact");
+    const contactError = document.getElementById("contact-error");
+
+    let timeout = null;
+
+    contactInput.addEventListener("input", () => {
+      const number = contactInput.value;
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        if (number.length < 10) {
+          contactError.textContent = "";
+          return;
+        }
+
+        fetch("validate.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ phone: number }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.valid) {
+              contactError.textContent = "✔ Valid number";
+              contactError.style.color = "green";
+            } else {
+              contactError.textContent = "✘ Invalid number";
+              contactError.style.color = "red";
+            }
+          })
+          .catch((err) => {
+            contactError.textContent = "Error checking number.";
+            contactError.style.color = "red";
+          });
+      }, 600);
+    });
+  </script>
+</html>
