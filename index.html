@@ -8,56 +8,7 @@
     <!-- <script src="script.js"></script> -->
   </head>
   <body>
-    <div class="form-container">
-      <h2>Registration Form</h2>
-      <form
-        action="/submit"
-        method="POST"
-        class="RegisterForm"
-        onsubmit="return validateForm()"
-      >
-        <div class="form-group">
-          <label for="first-name">Name</label>
-          <input
-            type="text"
-            id="first-name"
-            name="first-name"
-            required
-            oninput="validateForm()"
-          />
-          <small id="name-error" style="color: red"></small>
-        </div>
-        <div class="form-group">
-          <label for="Contact No.">Contact No.</label>
-          <input type="number" id="contact" name="contact" required />
-          <small id="contact-error" style="color: red"></small>
-        </div>
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <div class="form-group">
-          <label for="confirm-password">Confirm Password</label>
-          <input
-            type="password"
-            id="confirm-password"
-            name="confirm-password"
-            required
-          />
-        </div>
-        <div class="form-group">
-          <button type="submit">Register</button>
-        </div>
-      </form>
-    </div>
+    <div class="form-container"></div>
   </body>
   <script>
     const contactInput = document.getElementById("contact");
